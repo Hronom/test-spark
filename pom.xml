@@ -98,7 +98,7 @@
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib</classpathPrefix>
                             <classpathLayoutType>simple</classpathLayoutType>
-                            <mainClass>com.github.hronom.test.spring.boot.security.SampleWebSecureApplication</mainClass>
+                            <mainClass>com.github.hronom.test.spark.App</mainClass>
                         </manifest>
                         <manifestEntries>
                             <Version>${project.version}</Version>
@@ -176,49 +176,6 @@
             </plugin>
 
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>1.3.1.RELEASE</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19</version>
-                <configuration>
-                    <workingDirectory>${project.basedir}/bin</workingDirectory>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.19</version>
-                <executions>
-                    <execution>
-                        <id>integration-tests</id>
-                        <phase>integration-test</phase>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <workingDirectory>${project.basedir}/bin</workingDirectory>
-                    <encoding>UTF-8</encoding>
-                    <argLine>-Xmx14g</argLine>
-                </configuration>
-            </plugin>
-
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jdeps-plugin</artifactId>
                 <version>3.0.0</version>
@@ -228,25 +185,6 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
                 <version>2.2</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.basepom.maven</groupId>
-                <artifactId>duplicate-finder-maven-plugin</artifactId>
-                <version>1.2.1</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <url>${tomcat-server-url}</url>
-                    <username>${tomcat-username}</username>
-                    <password>${tomcat-password}</password>
-                    <path>/${project.artifactId}</path>
-                    <uriEncoding>UTF-8</uriEncoding>
-                </configuration>
             </plugin>
         </plugins>
     </build>
