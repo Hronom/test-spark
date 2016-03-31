@@ -4,6 +4,7 @@ import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.PairFunction;
 
 import java.io.Serializable;
@@ -27,7 +28,8 @@ public class App {
         // Здесь могла быть загрузка из файла sc.textFile("users-visits.log");
         // Но я решил применить к входным данным метод parallelize(); Для наглядности
 
-        List<String> visitsLog = Arrays.asList("user_id:0000, habrahabr.ru",
+        List<String> visitsLog = Arrays.asList(
+            "user_id:0000, habrahabr.ru",
             "user_id:0001, habrahabr.ru",
             "user_id:0002, habrahabr.ru",
             "user_id:0000, abc.ru",
@@ -52,7 +54,13 @@ public class App {
             });
 
         // Суммируем факты посещений для каждого user_id
-        JavaPairRDD<String, Integer> counts = pairs.reduceByKey((Integer a, Integer b) -> a + b);
+        JavaPairRDD<String, Integer> counts = pairs
+            .reduceByKey(new Function2<Integer, Integer, Integer>() {
+                @Override
+                public Integer call(Integer a, Integer b) throws Exception {
+                    return a + b;
+                }
+            });
 
         // Сиртируем по Value и возвращаем первые 10 запсисей
         List<Tuple2<String, Integer>> top10 = counts.takeOrdered(10, new CountComparator());
