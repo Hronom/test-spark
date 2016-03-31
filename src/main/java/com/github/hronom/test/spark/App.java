@@ -19,11 +19,11 @@ import scala.Tuple2;
  */
 public class App {
     public static void main(String[] args) throws InterruptedException {
-        final JavaSparkContext sc = new JavaSparkContext(new SparkConf()
+        SparkConf conf = new SparkConf()
             .setAppName("Spark user-activity")
-            .setMaster("local[2]")            //local - означает запуск в локальном режиме.
-            .set("spark.driver.host", "localhost")    //это тоже необходимо для локального режима
-        );
+            .setMaster("local[2]")
+            .set("spark.driver.host", "localhost");
+        JavaSparkContext sc = new JavaSparkContext(conf);
 
         // Здесь могла быть загрузка из файла sc.textFile("users-visits.log");
         // Но я решил применить к входным данным метод parallelize(); Для наглядности
