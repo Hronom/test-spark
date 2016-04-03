@@ -1,12 +1,11 @@
-package com.github.hronom.test.spark;
+package com.github.hronom.test.spark.application.receivers;
 
-import net.moznion.random.string.RandomStringGenerator;
+import com.github.hronom.test.spark.application.pools.RandomStringGeneratorPool;
 
 import org.apache.spark.storage.StorageLevel;
 import org.apache.spark.streaming.receiver.Receiver;
 
 public class JavaCustomReceiver extends Receiver<String> {
-    private RandomStringGenerator generator = new RandomStringGenerator();
     private String
         stringPattern
         = "Ccn!CCccCn!cccccccCn!!Ccccc!cc!ccccc!cccc!!Cc!C!C!Ccn!CCccCn!cccccccCn!!Ccccc!cc!ccccc!cccc!!Cc!C!C!Ccn!CCccCn!cccccccCn!!Ccccc!cc!ccccc!cccc!!Cc!C!C!Ccn!CCccCn!cccccccCn!!Ccccc!cc!ccccc!cccc!!Cc!C!C!Ccn!CCccCn!cccccccCn!!Ccccc!cc!ccccc!cccc!!Cc!C!C!Ccn!CCccCn!cccccccCn!!Ccccc!cc!ccccc!cccc!!Cc!C!C!";
@@ -33,6 +32,8 @@ public class JavaCustomReceiver extends Receiver<String> {
 
     /** Create a socket connection and receive data until receiver is stopped */
     private void receive() {
-        store(generator.generateFromPattern(stringPattern));
+        while (!isStopped()) {
+            store(RandomStringGeneratorPool.getGenerator().generateFromPattern(stringPattern));
+        }
     }
 }
