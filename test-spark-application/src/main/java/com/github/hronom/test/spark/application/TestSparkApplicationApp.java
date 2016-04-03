@@ -32,7 +32,7 @@ public class TestSparkApplicationApp {
         }
         SparkConf conf = new SparkConf()
             .setAppName("Spark test")
-            .setMaster("spark://NOMAD-MAIN:7077")
+            .setMaster("spark://localhost:7077")
             .setJars(listOfJars.toArray(new String[listOfJars.size()]));
         JavaStreamingContext ssc = new JavaStreamingContext(conf, new Duration(1000));
         JavaDStream<String> customReceiverStream = ssc.receiverStream(new JavaCustomReceiver());
