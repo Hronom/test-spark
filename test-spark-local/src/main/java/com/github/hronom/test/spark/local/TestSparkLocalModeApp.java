@@ -36,8 +36,8 @@ public class TestSparkLocalModeApp {
             .setJars(listOfJars.toArray(new String[listOfJars.size()]));
         JavaStreamingContext ssc = new JavaStreamingContext(conf, new Duration(1000));
         JavaDStream<String> customReceiverStream = ssc.receiverStream(new JavaCustomReceiver());
-        JavaDStream<String> words = customReceiverStream.flatMap(new SpaceSplitFlatMapFunction());
-        words.foreachRDD(new ResultsDumperFunction());
+        JavaDStream<String> strings = customReceiverStream.flatMap(new SpaceSplitFlatMapFunction());
+        strings.foreachRDD(new ResultsDumperFunction());
         ssc.start();
         ssc.awaitTermination();
     }
