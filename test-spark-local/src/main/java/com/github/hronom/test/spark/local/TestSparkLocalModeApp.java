@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class TestSparkLocalModeApp {
     public static void main(String[] args) throws InterruptedException {
         ArrayList<String> listOfJars = new ArrayList<>();
-        listOfJars.add("test-spark-application-1.0.0.jar");
+        listOfJars.add("test-spark-local-1.0.0.jar");
         try (DirectoryStream<Path> stream = Files
             .newDirectoryStream(Paths.get("lib"), "*.jar")) {
             for (Path path : stream) {
