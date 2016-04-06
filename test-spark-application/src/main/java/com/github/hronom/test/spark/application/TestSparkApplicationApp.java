@@ -1,7 +1,6 @@
 package com.github.hronom.test.spark.application;
 
 import com.github.hronom.test.spark.application.functions.ResultsDumperFunction;
-import com.github.hronom.test.spark.application.functions.SpaceSplitFlatMapFunction;
 import com.github.hronom.test.spark.application.functions.StringMapFunction;
 import com.github.hronom.test.spark.application.receivers.JavaCustomReceiver;
 
@@ -10,7 +9,6 @@ import org.apache.spark.streaming.Duration;
 import org.apache.spark.streaming.api.java.JavaDStream;
 import org.apache.spark.streaming.api.java.JavaStreamingContext;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.DirectoryStream;
