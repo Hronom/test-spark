@@ -5,12 +5,12 @@ import com.github.hronom.test.spark.application.pools.RandomStringGeneratorPool;
 import org.apache.spark.storage.StorageLevel;
 import org.apache.spark.streaming.receiver.Receiver;
 
-public class JavaCustomReceiver extends Receiver<String> {
+public class JavaCustom1kReceiver extends Receiver<String> {
     private String
         stringPattern
         = "Ccn!CCccCn!cccccccCn!!Ccccc!cc!ccccc!cccc!!Cc!C!C!Ccn!CCccCn!cccccccCn!!Ccccc!cc!ccccc!cccc!!Cc!C!C!Ccn!CCccCn!cccccccCn!!Ccccc!cc!ccccc!cccc!!Cc!C!C!Ccn!CCccCn!cccccccCn!!Ccccc!cc!ccccc!cccc!!Cc!C!C!Ccn!CCccCn!cccccccCn!!Ccccc!cc!ccccc!cccc!!Cc!C!C!Ccn!CCccCn!cccccccCn!!Ccccc!cc!ccccc!cccc!!Cc!C!C!";
 
-    public JavaCustomReceiver() {
+    public JavaCustom1kReceiver() {
         super(StorageLevel.MEMORY_AND_DISK_2());
     }
 
@@ -32,7 +32,7 @@ public class JavaCustomReceiver extends Receiver<String> {
 
     /** Create a socket connection and receive data until receiver is stopped */
     private void receive() {
-        while (!isStopped()) {
+        for (int i = 0; i < 1000; i++) {
             store(RandomStringGeneratorPool.getGenerator().generateFromPattern(stringPattern));
         }
     }
