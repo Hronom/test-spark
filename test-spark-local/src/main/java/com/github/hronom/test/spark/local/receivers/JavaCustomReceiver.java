@@ -32,7 +32,11 @@ public class JavaCustomReceiver extends Receiver<String> {
 
     /** Create a socket connection and receive data until receiver is stopped */
     private void receive() {
-        while (!isStopped()) {
+//        while (!isStopped()) {
+//            store(RandomStringGeneratorPool.getGenerator().generateFromPattern(stringPattern));
+//        }
+
+        for (int i = 0; i < 1000; i++) {
             store(RandomStringGeneratorPool.getGenerator().generateFromPattern(stringPattern));
         }
     }

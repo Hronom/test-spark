@@ -1,7 +1,7 @@
 package com.github.hronom.test.spark.local;
 
 import com.github.hronom.test.spark.local.functions.ResultsDumperFunction;
-import com.github.hronom.test.spark.local.functions.SpaceSplitFlatMapFunction;
+import com.github.hronom.test.spark.local.functions.StringMapFunction;
 import com.github.hronom.test.spark.local.receivers.JavaCustomReceiver;
 
 import org.apache.spark.SparkConf;
@@ -36,8 +36,9 @@ public class TestSparkLocalModeApp {
             .setJars(listOfJars.toArray(new String[listOfJars.size()]));
         JavaStreamingContext ssc = new JavaStreamingContext(conf, new Duration(1000));
         JavaDStream<String> customReceiverStream = ssc.receiverStream(new JavaCustomReceiver());
-        JavaDStream<String> strings = customReceiverStream.flatMap(new SpaceSplitFlatMapFunction());
-        strings.foreachRDD(new ResultsDumperFunction());
+        //JavaDStream<String> strings = customReceiverStream.flatMap(new SpaceSplitFlatMapFunction());
+        JavaDStream<String> transformedStrings = customReceiverStream.map(new StringMapFunction());
+        transformedStrings.foreachRDD(new ResultsDumperFunction());
         ssc.start();
         ssc.awaitTermination();
     }
