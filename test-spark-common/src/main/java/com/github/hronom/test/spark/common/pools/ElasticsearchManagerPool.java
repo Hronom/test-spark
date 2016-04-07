@@ -16,16 +16,17 @@ public final class ElasticsearchManagerPool {
 
     public static ElasticsearchManager getManager() throws IOException {
         if (elasticsearchManager == null) {
-            elasticsearchManager = new ElasticsearchManager();
-            elasticsearchManager.initialize("http://localhost:9200", 10);
-            if (!elasticsearchManager.isIndexExists("test_index")) {
+            ElasticsearchManager newElasticsearchManager = new ElasticsearchManager();
+            newElasticsearchManager.initialize("http://localhost:9200", 10);
+            if (!newElasticsearchManager.isIndexExists("test_index")) {
                 URL url = ElasticsearchManagerPool.class.getResource("index_mapping.json");
                 String indexConfigJson = Resources.toString(url, StandardCharsets.UTF_8);
-                elasticsearchManager.addIndex("test_index", indexConfigJson);
+                newElasticsearchManager.addIndex("test_index", indexConfigJson);
             }
             else {
-                elasticsearchManager.removeIndex("test_index");
+                newElasticsearchManager.removeIndex("test_index");
             }
+            elasticsearchManager = newElasticsearchManager;
             return elasticsearchManager;
         } else {
             return elasticsearchManager;
