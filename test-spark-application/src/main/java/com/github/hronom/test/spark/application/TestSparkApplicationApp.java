@@ -1,5 +1,6 @@
 package com.github.hronom.test.spark.application;
 
+import com.github.hronom.test.spark.common.functions.ResultsToElasticsearchFunction;
 import com.github.hronom.test.spark.common.functions.ResultsToElasticsearchWithCollectFunction;
 import com.github.hronom.test.spark.common.functions.SimpleMapFunction;
 import com.github.hronom.test.spark.common.receivers.JavaCustomWithCountReceiver;
@@ -45,7 +46,7 @@ public class TestSparkApplicationApp {
             JavaDStream<String> customReceiverStream = ssc.receiverStream(new JavaCustomWithCountReceiver(1000));
             //JavaDStream<String> transformedStrings = customReceiverStream.flatMap(new SpaceSplitFlatMapFunction());
             JavaDStream<String> transformedStrings = customReceiverStream.map(new SimpleMapFunction());
-            transformedStrings.foreachRDD(new ResultsToElasticsearchWithCollectFunction());
+            transformedStrings.foreachRDD(new ResultsToElasticsearchFunction());
             ssc.start();
             ssc.awaitTermination();
         } catch (IOException e) {
