@@ -1,4 +1,4 @@
-package com.github.hronom.test.spark.local.managers;
+package com.github.hronom.test.spark.common.managers;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

@@ -1,10 +1,10 @@
-package com.github.hronom.test.spark.local.functions;
+package com.github.hronom.test.spark.common.functions;
 
 import org.apache.spark.api.java.function.FlatMapFunction;
 
 import java.util.Arrays;
 
-public class SpaceSplitFlatMapFunction implements FlatMapFunction<String, String> {
+public class SplitBySpaceFlatMapFunction implements FlatMapFunction<String, String> {
     // TODO Function Not serializable exception
     //private final RandomStringGenerator randomStringGenerator = new RandomStringGenerator();
 

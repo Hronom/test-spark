@@ -1,4 +1,4 @@
-package com.github.hronom.test.spark.local.pools;
+package com.github.hronom.test.spark.common.pools;
 
 import net.moznion.random.string.RandomStringGenerator;
 

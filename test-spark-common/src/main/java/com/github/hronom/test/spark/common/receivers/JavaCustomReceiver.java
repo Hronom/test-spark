@@ -1,6 +1,6 @@
-package com.github.hronom.test.spark.application.receivers;
+package com.github.hronom.test.spark.common.receivers;
 
-import com.github.hronom.test.spark.application.pools.RandomStringGeneratorPool;
+import com.github.hronom.test.spark.common.pools.RandomStringGeneratorPool;
 
 import org.apache.spark.storage.StorageLevel;
 import org.apache.spark.streaming.receiver.Receiver;
@@ -30,7 +30,6 @@ public class JavaCustomReceiver extends Receiver<String> {
         // if isStopped() returns false.
     }
 
-    /** Create a socket connection and receive data until receiver is stopped */
     private void receive() {
         while (!isStopped()) {
             store(RandomStringGeneratorPool.getGenerator().generateFromPattern(stringPattern));

@@ -1,8 +1,8 @@
 package com.github.hronom.test.spark.local;
 
-import com.github.hronom.test.spark.local.functions.ResultsDumperFunction;
-import com.github.hronom.test.spark.local.functions.StringMapFunction;
-import com.github.hronom.test.spark.local.receivers.JavaCustomReceiver;
+import com.github.hronom.test.spark.common.functions.ResultsToElasticsearchFunction;
+import com.github.hronom.test.spark.common.functions.SimpleMapFunction;
+import com.github.hronom.test.spark.common.receivers.JavaCustomReceiver;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.streaming.Duration;
@@ -37,8 +37,8 @@ public class TestSparkLocalModeApp {
         JavaStreamingContext ssc = new JavaStreamingContext(conf, new Duration(1000));
         JavaDStream<String> customReceiverStream = ssc.receiverStream(new JavaCustomReceiver());
         //JavaDStream<String> strings = customReceiverStream.flatMap(new SpaceSplitFlatMapFunction());
-        JavaDStream<String> transformedStrings = customReceiverStream.map(new StringMapFunction());
-        transformedStrings.foreachRDD(new ResultsDumperFunction());
+        JavaDStream<String> transformedStrings = customReceiverStream.map(new SimpleMapFunction());
+        transformedStrings.foreachRDD(new ResultsToElasticsearchFunction());
         ssc.start();
         ssc.awaitTermination();
     }

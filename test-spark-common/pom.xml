@@ -8,17 +8,28 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>test-spark-local</artifactId>
+    <artifactId>test-spark-common</artifactId>
     <packaging>jar</packaging>
 
-    <name>test-spark-local</name>
+    <name>test-spark-common</name>
     <url>http://maven.apache.org</url>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <dependencies>
+        <!-- Random-string -->
         <dependency>
-            <groupId>com.github.hronom</groupId>
-            <artifactId>test-spark-common</artifactId>
-            <version>1.0.0</version>
+            <groupId>net.moznion</groupId>
+            <artifactId>random-string</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+        <!-- Jest -->
+        <dependency>
+            <groupId>io.searchbox</groupId>
+            <artifactId>jest</artifactId>
+            <version>2.0.0</version>
         </dependency>
         <!-- Spark -->
         <dependency>
@@ -62,19 +73,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.6</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib</classpathPrefix>
-                            <classpathLayoutType>simple</classpathLayoutType>
-                            <mainClass>com.github.hronom.test.spark.local.TestSparkLocalModeApp</mainClass>
-                        </manifest>
-                        <manifestEntries>
-                            <Version>${project.version}</Version>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
             </plugin>
 
             <plugin>

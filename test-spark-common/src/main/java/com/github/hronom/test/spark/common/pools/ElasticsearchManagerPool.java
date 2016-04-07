@@ -1,8 +1,8 @@
-package com.github.hronom.test.spark.local.pools;
+package com.github.hronom.test.spark.common.pools;
 
 import com.google.common.io.Resources;
 
-import com.github.hronom.test.spark.local.managers.ElasticsearchManager;
+import com.github.hronom.test.spark.common.managers.ElasticsearchManager;
 
 import java.io.IOException;
 import java.net.URL;

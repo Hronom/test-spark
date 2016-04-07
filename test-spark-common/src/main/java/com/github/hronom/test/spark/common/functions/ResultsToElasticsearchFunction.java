@@ -1,17 +1,15 @@
-package com.github.hronom.test.spark.local.functions;
+package com.github.hronom.test.spark.common.functions;
 
-import com.github.hronom.test.spark.local.managers.ElasticsearchManager;
-import com.github.hronom.test.spark.local.pools.ElasticsearchManagerPool;
+import com.github.hronom.test.spark.common.managers.ElasticsearchManager;
+import com.github.hronom.test.spark.common.pools.ElasticsearchManagerPool;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.function.VoidFunction;
 
-import java.net.URL;
 import java.util.Iterator;
-import java.util.concurrent.TimeUnit;
 
-public class ResultsDumperFunction implements VoidFunction<JavaRDD<String>> {
+public class ResultsToElasticsearchFunction implements VoidFunction<JavaRDD<String>> {
     @Override
     public void call(JavaRDD<String> rdd) throws Exception {
         rdd.foreachPartition(new VoidFunction<Iterator<String>>() {

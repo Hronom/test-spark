@@ -1,8 +1,8 @@
 package com.github.hronom.test.spark.application;
 
-import com.github.hronom.test.spark.application.functions.ResultsDumperFunction;
-import com.github.hronom.test.spark.application.functions.StringMapFunction;
-import com.github.hronom.test.spark.application.receivers.JavaCustomReceiver;
+import com.github.hronom.test.spark.common.functions.ResultsToElasticsearchWithCollectFunction;
+import com.github.hronom.test.spark.common.functions.SimpleMapFunction;
+import com.github.hronom.test.spark.common.receivers.JavaCustomWithCountReceiver;
 
 import org.apache.spark.SparkConf;
 import org.apache.spark.streaming.Duration;
@@ -42,10 +42,10 @@ public class TestSparkApplicationApp {
                 .setMaster(prop.getProperty("master"))
                 .setJars(listOfJars.toArray(new String[listOfJars.size()]));
             JavaStreamingContext ssc = new JavaStreamingContext(conf, new Duration(1000));
-            JavaDStream<String> customReceiverStream = ssc.receiverStream(new JavaCustomReceiver());
-            //JavaDStream<String> strings = customReceiverStream.flatMap(new SpaceSplitFlatMapFunction());
-            JavaDStream<String> transformedStrings = customReceiverStream.map(new StringMapFunction());
-            transformedStrings.foreachRDD(new ResultsDumperFunction());
+            JavaDStream<String> customReceiverStream = ssc.receiverStream(new JavaCustomWithCountReceiver(1000));
+            //JavaDStream<String> transformedStrings = customReceiverStream.flatMap(new SpaceSplitFlatMapFunction());
+            JavaDStream<String> transformedStrings = customReceiverStream.map(new SimpleMapFunction());
+            transformedStrings.foreachRDD(new ResultsToElasticsearchWithCollectFunction());
             ssc.start();
             ssc.awaitTermination();
         } catch (IOException e) {
