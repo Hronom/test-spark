@@ -8,8 +8,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-public class ElasticsearchManagerPool {
+public final class ElasticsearchManagerPool {
     private static ElasticsearchManager elasticsearchManager = null;
+
+    private ElasticsearchManagerPool() {
+    }
 
     public static ElasticsearchManager getManager() throws IOException {
         if (elasticsearchManager == null) {

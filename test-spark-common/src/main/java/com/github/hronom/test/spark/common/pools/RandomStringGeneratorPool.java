@@ -2,8 +2,11 @@ package com.github.hronom.test.spark.common.pools;
 
 import net.moznion.random.string.RandomStringGenerator;
 
-public class RandomStringGeneratorPool {
+public final class RandomStringGeneratorPool {
     private static RandomStringGenerator generator = null;
+
+    private RandomStringGeneratorPool() {
+    }
 
     public static RandomStringGenerator getGenerator() {
         if (generator == null) {
